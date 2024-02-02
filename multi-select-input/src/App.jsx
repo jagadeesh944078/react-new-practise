@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
 import Pill from "./components/Pill";
@@ -8,7 +8,7 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUserSet, setSelectedUserSet] = useState(new Set());
-
+  const inputRef = useRef(null);
   // https://dummyjson.com/users/search?q=Jo
 
   useEffect(() => {
@@ -30,9 +30,18 @@ function App() {
     setSelectedUserSet(new Set([...selectedUserSet, user.email]));
     setSearchTerm("");
     setSuggestions([]);
+    inputRef.current.focus();
   };
 
-  const handleRemoveUser = (user) => {};
+  const handleRemoveUser = (user) => {
+    const updatedUsers = selectedUsers.filter(
+      (selectedUser) => selectedUser.id !== user.id
+    );
+    setSelectedUsers(updatedUsers);
+    const updatedEmails = new Set(selectedUsers);
+    updatedEmails.delete(user.email);
+    setSelectedUserSet(updatedEmails);
+  };
 
   console.log(selectedUserSet, "select");
 
@@ -50,6 +59,7 @@ function App() {
         ))}
         <div>
           <input
+            ref={inputRef}
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -62,7 +72,9 @@ function App() {
               !selectedUserSet.has(user.email) ? (
                 <li key={user.email} onClick={() => handleSelectUser(user)}>
                   <img src={user.image} alt={user.username} />
-                  <span>{user.username}</span>
+                  <span>
+                    {user.firstName} {user.lastName}
+                  </span>
                 </li>
               ) : (
                 <></>
