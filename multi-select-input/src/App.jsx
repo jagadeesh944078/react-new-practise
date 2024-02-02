@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
+import Pill from "./components/Pill";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,12 +32,22 @@ function App() {
     setSuggestions([]);
   };
 
+  const handleRemoveUser = (user) => {};
+
   console.log(selectedUserSet, "select");
 
   return (
     <div className="user-search-container">
-      {/* Pills */}
       <div className="user-search-input">
+        {/* Pill */}
+        {selectedUsers.map((user) => (
+          <Pill
+            key={user.email}
+            image={user.image}
+            text={`${user.firstName}${user.lastName}`}
+            onClick={() => handleRemoveUser(user)}
+          />
+        ))}
         <div>
           <input
             type="text"
