@@ -43,6 +43,18 @@ function App() {
     setSelectedUserSet(updatedEmails);
   };
 
+  const handleKeyDown = (e) => {
+    if (
+      e.key === "Backspace" &&
+      e.target.value === "" &&
+      selectedUsers.length > 0
+    ) {
+      const lastUser = selectedUsers[selectedUsers.length - 1];
+      handleRemoveUser(lastUser);
+      setSuggestions([]);
+    }
+  };
+
   console.log(selectedUserSet, "select");
 
   return (
@@ -64,6 +76,7 @@ function App() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="enter search name"
+            onKeyDown={handleKeyDown}
           />
 
           {/* Search Suggestions */}
