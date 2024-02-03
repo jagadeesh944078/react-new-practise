@@ -26,7 +26,14 @@ function App() {
         .then((data) => setSuggestions(data.users))
         .catch((err) => console.error("error while loading data" + err));
     };
-    fetchUsers();
+
+    const timer = setTimeout(() => {
+      fetchUsers();
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [searchTerm]);
 
   const scrollToActiveSuggestion = () => {
