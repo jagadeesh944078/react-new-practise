@@ -9,6 +9,7 @@ function App() {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUserSet, setSelectedUserSet] = useState(new Set());
   const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [cacheResult, setCacheResult] = useState({});
   const suggestionsListRef = useRef(null);
 
   const inputRef = useRef(null);
@@ -20,10 +21,17 @@ function App() {
         setSuggestions([]);
         return;
       }
+      if (cacheResult[searchTerm]) {
+        setSuggestions(cacheResult[searchTerm]);
+        return;
+      }
       setActiveSuggestion(0);
       fetch(`https://dummyjson.com/users/search?q=${searchTerm}`)
         .then((res) => res.json())
-        .then((data) => setSuggestions(data.users))
+        .then((data) => {
+          setSuggestions(data.users);
+          setCacheResult({ ...cacheResult, [searchTerm]: data.users });
+        })
         .catch((err) => console.error("error while loading data" + err));
     };
 
@@ -90,7 +98,7 @@ function App() {
     }
   };
 
-  console.log(selectedUserSet, "select");
+  console.log(cacheResult, "cacheResult");
 
   return (
     <div className="user-search-container">
