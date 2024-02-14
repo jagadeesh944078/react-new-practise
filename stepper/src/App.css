@@ -45,7 +45,6 @@ body {
 .progress-bar {
   height: 4px;
   background-color: #ccc;
-  width: 100%;
   left: 0;
   position: absolute;
   top: 25%;

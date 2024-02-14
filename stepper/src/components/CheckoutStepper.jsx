@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 const CheckoutStepper = ({ stepsConfig = [] }) => {
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
   const [isCompleted, setIsCompleted] = useState(false);
   const [margins, setMargins] = useState({ marginLeft: 0, marginRight: 0 });
   const stepRef = useRef([]);
@@ -30,6 +30,12 @@ const CheckoutStepper = ({ stepsConfig = [] }) => {
 
   const ActiveComponent = stepsConfig[currentStep - 1]?.Component;
 
+  const widthStyle = {
+    width: `calc(100% - ${margins?.marginLeft + margins?.marginRight}px)`,
+    marginLeft: margins?.marginLeft,
+    marginRight: margins?.marginRight,
+  };
+
   const calculateProgressBarWidth = () => {
     return ((currentStep - 1) / (stepsConfig.length - 1)) * 100;
   };
@@ -57,14 +63,7 @@ const CheckoutStepper = ({ stepsConfig = [] }) => {
             </div>
           );
         })}
-        <div
-          className="progress-bar"
-          style={{
-            width: `calc(100%-${margins.marginLeft + margins.marginRight}px)`,
-            marginLeft: margins.marginLeft,
-            marginRight: margins.marginRight,
-          }}
-        >
+        <div className="progress-bar" style={widthStyle}>
           <div
             className="progress"
             style={{ width: `${calculateProgressBarWidth()}%` }}
