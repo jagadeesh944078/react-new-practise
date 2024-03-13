@@ -9,7 +9,6 @@ function App() {
   });
 
   const handleResize = () => {
-    console.log("handle resize called");
     setWindowSize({
       width: window.innerWidth,
       height: window.innerHeight,
