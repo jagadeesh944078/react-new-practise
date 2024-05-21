@@ -11,14 +11,38 @@ function App() {
       <button
         onClick={() =>
           triggerNotification({
-            type: "success",
-            message: "File Sent Successfully",
-            duration: 5000,
+            type: "info",
+            message: "Information Message",
+            duration: 3000,
             animation: "pop",
           })
         }
       >
-        Trigger Success
+        Show Info
+      </button>
+      <button
+        onClick={() =>
+          triggerNotification({
+            type: "warning",
+            message: "Warning Message",
+            duration: 3000,
+            animation: "pop",
+          })
+        }
+      >
+        Show Warning
+      </button>
+      <button
+        onClick={() =>
+          triggerNotification({
+            type: "success",
+            message: "File Sent Successfully",
+            duration: 3000,
+            animation: "pop",
+          })
+        }
+      >
+        Show Success
       </button>
       <button
         onClick={() =>
@@ -30,7 +54,7 @@ function App() {
           })
         }
       >
-        Trigger Error
+        Show Error
       </button>
       {NotificationComponent}
     </div>
