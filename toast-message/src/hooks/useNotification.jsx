@@ -7,6 +7,7 @@ const useNotification = (position = "top-right") => {
   let timer;
 
   const triggerNotification = useCallback((notificationProps) => {
+    debugger;
     const id = Date.now();
     setNotifications((prev) => [
       ...prev,
