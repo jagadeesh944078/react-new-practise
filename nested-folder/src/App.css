@@ -1,0 +1,17 @@
+.file-manager {
+  padding: 20px;
+  font-family: Arial sans-serif;
+}
+.node {
+  margin-left: 20px;
+  padding: 5px;
+  border-left: 1px solid #ccc;
+}
+
+.node > span {
+  margin-left: 10px;
+}
+
+.children {
+  margin-left: 20px;
+}
